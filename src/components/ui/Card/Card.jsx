@@ -1,18 +1,31 @@
 /* eslint-disable react/prop-types */
 
 import "./Card.css";
-export default function Card({ imageSource, title, date, type }) {
+import { useNavigate } from "react-router-dom";
+
+export default function Card({ all, imageSource, title, first, second, type }) {
+  const navigate = useNavigate();
+
+  const onclick = () => {
+    if (type == "person") {
+      if (all.id) {
+        navigate(
+          "/" + "person" + "/?" + "person=" + all.id + "&name=" + all.name
+        );
+      }
+    }
+  };
   return (
-    <div className="Card">
+    <div className="Card" onClick={onclick}>
       <div className="posterHolder">
         <img src={imageSource} alt="" />
       </div>
       <a href="">{title}</a>
       <div className="posterInformation">
         <div className="left">
-          <span>{new Date(date).getFullYear()}</span>
-          <span className="dot"></span>
-          <span>97m</span>
+          <span>{type != "person" && first}</span>
+          {type != "person" && <span className="dot"></span>}
+          <span>{type != "person" && second}</span>
         </div>
         <div className="right">
           <span>

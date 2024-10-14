@@ -1,9 +1,15 @@
 /* eslint-disable react/prop-types */
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import "./Filter.css";
 import SearchIcon from "../../../assets/images/search.png";
 import CloseIcon from "../../../assets/images/close.png";
 import FilterIcon from "../../../assets/images/filter.png";
-export default function Filter({ set, value }) {
+export default function Filter() {
+  const navigate = useNavigate();
+  const params = useParams();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search); // Access query string
+
   const generateGenre = () => {
     const genres = [
       "Action",
@@ -37,7 +43,7 @@ export default function Filter({ set, value }) {
     let array = [];
     for (let i = 0; i < genres.length; i++) {
       array.push(
-        <div className="singleElement">
+        <div className="singleElement" key={2000 + i}>
           <input
             type="checkbox"
             id={genres[i]}
@@ -92,7 +98,7 @@ export default function Filter({ set, value }) {
     let array = [];
     for (let i = 0; i < Countries.length; i++) {
       array.push(
-        <div className="singleElement">
+        <div className="singleElement" key={3000 + i}>
           <input
             type="checkbox"
             id={Countries[i]}
@@ -106,35 +112,65 @@ export default function Filter({ set, value }) {
     return array;
   };
   let filterObject = {
-    type: "movie",
-    year: "all",
+    type: "",
+    year: "",
     genre: [],
     country: [],
     search: "",
+    person: "",
   };
   const resetFilterObject = () => {
     filterObject = {
       type: "movie",
-      year: "all",
+      year: "",
       genre: [],
       country: [],
       search: "",
+      person: "",
     };
+  };
+  const setFilterRouter = (filter) => {
+    let url = "/" + filter.type + "/?";
+
+    if (filter.country.length > 0) {
+      url += "country=" + filter.country.join("-") + "&";
+    }
+    if (filter.genre.length > 0) {
+      url += "genre=" + filter.genre.join("-") + "&";
+    }
+    if (filter.year) {
+      url += "year=" + filter.year + "&";
+    }
+
+    if (filter.search) {
+      url += "search=" + filter.search + "&";
+    }
+    if (filter.person) {
+      url += "person=" + filter.person + "&";
+    }
+    if (url[url.length - 1] === "&") {
+      url = url.substring(0, url.length - 1);
+    }
+
+    navigate(url);
   };
   const setFilter = () => {
     resetFilterObject();
     // type filter
     const type = document.querySelector('input[name="type"]:checked');
-    filterObject.type = type ? type.value : "all";
+    filterObject.type = type ? type.value : "movie";
+
     // year filter
     const year = document.querySelector('input[name="year"]:checked');
-    filterObject.year = year ? year.value : "all";
+    filterObject.year = year ? year.value : "";
+
     // genre filter
     const genre =
       document.querySelectorAll('input[name="genre"]:checked') || [];
     genre.forEach((e) => {
       filterObject.genre.push(e.value);
     });
+
     // country filter
     const country =
       document.querySelectorAll('input[name="country"]:checked') || [];
@@ -142,23 +178,22 @@ export default function Filter({ set, value }) {
       filterObject.country.push(e.value);
     });
 
-    console.log(filterObject);
-    set(filterObject);
     toggle();
+    setFilterRouter(filterObject);
   };
+
   const setSearch = () => {
     resetFilterObject();
     const search = document.querySelector("input[type='text']");
-    console.log(search);
     if (search && search.value.length > 0) {
       filterObject.search = search.value;
       filterObject.type = "search";
-      console.log(filterObject);
-      set(filterObject);
+      setFilterRouter(filterObject);
       close();
       search.value = "";
     }
   };
+
   const unChecked = () => {
     let allInputs = document.querySelectorAll("input") || [];
     allInputs.forEach((i) => {
@@ -179,54 +214,63 @@ export default function Filter({ set, value }) {
       unChecked();
     }
   };
+
   const setTargetKeywords = (e) => {
     resetFilterObject();
     filterObject.type = e.target.innerHTML.toLowerCase();
-    set(filterObject);
+    setFilterRouter(filterObject);
   };
+
   return (
     <div className="FilterContainer">
       <div className="targetKeywords">
         <button
           onClick={setTargetKeywords}
-          className={value.type == "now playing" ? "active" : ""}
+          className={params && params.type == "now playing" ? "active" : ""}
         >
           Now Playing
         </button>
         <button
           onClick={setTargetKeywords}
-          className={value.type == "popular" ? "active" : ""}
+          className={params && params.type == "popular" ? "active" : ""}
         >
           Popular
         </button>
         <button
           onClick={setTargetKeywords}
-          className={value.type == "top rated" ? "active" : ""}
+          className={params && params.type == "top rated" ? "active" : ""}
         >
           Top Rated
         </button>
         <button
           onClick={setTargetKeywords}
-          className={value.type == "upcoming" ? "active" : ""}
+          className={params && params.type == "upcoming" ? "active" : ""}
         >
           Upcoming
         </button>
+        <button
+          onClick={setTargetKeywords}
+          className={params && params.type == "people" ? "active" : ""}
+        >
+          People
+        </button>
       </div>
-
 
       <div className="SearchButton">
         <input type="text" />
         <button onClick={setSearch}>Search</button>
       </div>
 
-
       <div className="filter-show">
+        <h1>
+          {params.type === "person" ? queryParams.get("name") : params.type}
+        </h1>
         <button onClick={toggle}>
           <img src={FilterIcon} alt="filter" />
           Filter
         </button>
       </div>
-      
+
       <div className="Filter">
         <div className="TypeFilter">
           <p>Type:</p>
