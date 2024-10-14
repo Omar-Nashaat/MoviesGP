@@ -6,8 +6,15 @@ import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
 import cover1 from '../../assets/cover1.png'
 import cover2 from '../../assets/cover2.png'
+import film from '../../assets/film.jpg'
 import './style.css'
 import useIsMobile from '@/hooks/useIsMobile';
+import { Button } from "@/components/ui/button"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 import axios from '@/api/axios';
 import { IMAGE_BASE_URL } from '@/constants/constants';
 
@@ -16,7 +23,7 @@ const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([])
 
   const getTrendingMovies = () => {
-    axios.get(`/trending/movie/day`)
+    axios.get(`https://api.themoviedb.org/3/trending/movie/day`)
       .then((res) => {
         console.log(res.data.results);
         setTrendingMovies(res.data.results);
@@ -108,7 +115,7 @@ const Home = () => {
                 <div className='flex flex-row justify-between items-center'>
                   <span className='text-white'>{movie.release_date.split("-")[0]} {movie.vote_average == 0 ? null :
                     <>
-                      - {movie.vote_average.toFixed(1)}
+                    - {movie.vote_average.toFixed(1)}
                       <i className="fa-solid fa-star text-[#FFD600] ms-1"></i>
                     </>
                   }

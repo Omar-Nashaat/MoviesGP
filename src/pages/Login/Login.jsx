@@ -1,17 +1,14 @@
-import logo from '../../assets/download-removebg-preview.png';
+import React from 'react'
 
 const Login = () => {
   return (
-    <div className="bg-[#44406F] h-screen flex items-center justify-center">
-      <div className="bg-[#2A254B] p-8 rounded-lg shadow-lg w-full max-w-md">
-        {/* Header with logo */}
-        <div className="flex flex-col items-center mb-6">
-          <img className="h-10 mb-4" src={logo} alt="logo" />
-          <h1 className="text-white text-3xl font-semibold mb-2">
-            Welcome back!
-          </h1>
-        </div>
+    <>
+    
+    </>
+  )
+}
 
+<<<<<<< Updated upstream
         {/* Email Input */}
         <div className="mb-4">
           <label className="block text-gray-300 text-sm mb-2" htmlFor="email">
@@ -78,3 +75,6 @@ const Login = () => {
 };
 
 export default Login;
+=======
+export default Login
+>>>>>>> Stashed changes
