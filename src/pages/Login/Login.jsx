@@ -26,7 +26,7 @@ const Login = () => {
         </div>
 
         {/* Password Input */}
-        <div className="mb-4">
+        <div className="mb-8">
           <label
             className="block text-gray-300 text-sm mb-2"
             htmlFor="password"
@@ -42,7 +42,7 @@ const Login = () => {
         </div>
 
         {/* Remember Me and Forgot Password */}
-        <div className="flex items-center justify-between mb-4">
+        {/* <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
             <input
               type="checkbox"
@@ -56,7 +56,7 @@ const Login = () => {
           <a href="#" className="text-sm text-indigo-400 hover:underline">
             Forgot password?
           </a>
-        </div>
+        </div> */}
 
         {/* Login Button */}
         <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition">
@@ -67,7 +67,7 @@ const Login = () => {
         <div className="text-center mt-6">
           <p className="text-sm text-gray-400">
             Don't have an account?{' '}
-            <a href="#" className="text-indigo-400 hover:underline">
+            <a href="https://www.themoviedb.org/signup" className="text-indigo-400 hover:underline" target='__blank'>
               Register
             </a>
           </p>
