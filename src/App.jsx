@@ -9,11 +9,8 @@ const routes = createBrowserRouter([
   { path: 'login', element: <Login /> },
   {
     path: '', element: <Layout />, children: [
-<<<<<<< Updated upstream
 
-=======
       { path: 'login', element: <Login /> },
->>>>>>> Stashed changes
       { path: 'home', element: <Home /> },
       // { path: '*', element: <NotFound /> },
     ]
