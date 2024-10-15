@@ -4,6 +4,7 @@ import Layout from "./pages/Layout/Layout";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
 import ResultPage from "./pages/ResultPage/ResultPage";
+import FavoritePage from "./pages/FavoritePage/FavoritePage";
 
 const routes = createBrowserRouter([
   { path: "", element: <Login /> },
@@ -15,6 +16,7 @@ const routes = createBrowserRouter([
       { path: "home", element: <Home /> },
       { path: "result", element: <ResultPage /> },
       { path: "result/:type", element: <ResultPage /> },
+      { path: "FavoritePage", element: <FavoritePage /> },
 
       // { path: '*', element: <NotFound /> },
     ],

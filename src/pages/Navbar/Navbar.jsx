@@ -17,6 +17,7 @@ const navigation = [
   { name: "Search", to: "/result" },
   { name: "Actors", to: "result/people" },
   { name: "Upcoming", to: "result/upcoming" },
+  { name: "Favorites", to: "FavoritePage" },
 ];
 
 const Navbar = ({ searchBox }) => {

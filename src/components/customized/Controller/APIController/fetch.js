@@ -1,13 +1,4 @@
-import { getAPI, getParams } from "./controller";
-
-const options = {
-  method: "GET",
-  headers: {
-    accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNjBhM2ViMDhhMWQ5Y2RjY2E1NGZjNjcwMTgxMmFjOCIsIm5iZiI6MTcyODM5OTU2NS43NTE0Miwic3ViIjoiNjZmOTgyNjIxYTljOTE4OGZlY2M2M2RjIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.keNsd-uSLYEfqV7UebVqVQcph1bHJFI1bdE-Wn7_FNU",
-  },
-};
+import { getAPI, getParams, options } from "./controller";
 
 async function getFetch(request) {
   // let fetches = [];
@@ -43,7 +34,7 @@ async function getFetch(request) {
   }
 }
 
-function shuffleArray(array) {
+export function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
@@ -88,7 +79,7 @@ async function handleMultiResponse(APIS, { filter }) {
   return { results: result, total_pages: minSize * 2 };
 }
 
-async function moreDetails2(array) {
+export async function moreDetails(array) {
   let promises = [];
   for (let i = 0; i < array.length; i++) {
     if (array[i].media_type === "movie") {
@@ -120,7 +111,7 @@ export async function fetchHandler(request) {
 
     if (response.total_pages) {
       return [
-        await moreDetails2(result),
+        await moreDetails(result),
         response.total_pages > 500 ? 500 : response.total_pages,
       ];
     } else {
@@ -128,7 +119,7 @@ export async function fetchHandler(request) {
       let pageSize = Math.ceil(size / 20);
       let start = (+request.filter.page - 1) * 20;
       let end = start + 20 > size ? size : start + 20;
-      return [await moreDetails2(result.slice(start, end)), pageSize];
+      return [await moreDetails(result.slice(start, end)), pageSize];
     }
   } catch (err) {
     console.error(err);

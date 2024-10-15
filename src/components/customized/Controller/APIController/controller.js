@@ -9,7 +9,23 @@ import {
   getTopRatedParams,
   getUpcomingParams,
 } from "./Params";
-
+export const options = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNjBhM2ViMDhhMWQ5Y2RjY2E1NGZjNjcwMTgxMmFjOCIsIm5iZiI6MTcyODM5OTU2NS43NTE0Miwic3ViIjoiNjZmOTgyNjIxYTljOTE4OGZlY2M2M2RjIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.keNsd-uSLYEfqV7UebVqVQcph1bHJFI1bdE-Wn7_FNU",
+  },
+};
+export const options2 = {
+  method: "POST",
+  headers: {
+    accept: "application/json",
+    "content-type": "application/json",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNjBhM2ViMDhhMWQ5Y2RjY2E1NGZjNjcwMTgxMmFjOCIsIm5iZiI6MTcyODgzNzEzNS4wNDc0NDMsInN1YiI6IjY2Zjk4MjYyMWE5YzkxODhmZWNjNjNkYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zxd5_bfFTMTI8-WCbWxQqFbNjgdIBQi80U1n9PekP4c",
+  },
+};
 export function getAPI(filter) {
   if (filter.filter.type === "all") {
     return [
