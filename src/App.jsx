@@ -1,23 +1,27 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import './App.css'
-import Layout from './pages/Layout/Layout'
-import Login from './pages/Login/Login'
-import Home from './pages/Home/Home'
-import SearchPage from './pages/SearchPage/SearchPage'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./App.css";
+import Layout from "./pages/Layout/Layout";
+import Login from "./pages/Login/Login";
+import Home from "./pages/Home/Home";
+import ResultPage from "./pages/ResultPage/ResultPage";
+import FavoritePage from "./pages/FavoritePage/FavoritePage";
 
 const routes = createBrowserRouter([
-  { path: '', element: <Login /> },
-  { path: 'login', element: <Login /> },
+  { path: "", element: <Login /> },
+  { path: "login", element: <Login /> },
   {
-    path: '', element: <Layout />, children: [
-
-      { path: 'home', element: <Home /> },
-      { path: 'filter', element: <SearchPage /> },
+    path: "",
+    element: <Layout />,
+    children: [
+      { path: "home", element: <Home /> },
+      { path: "result", element: <ResultPage /> },
+      { path: "result/:type", element: <ResultPage /> },
+      { path: "FavoritePage", element: <FavoritePage /> },
 
       // { path: '*', element: <NotFound /> },
-    ]
-  }
-])
+    ],
+  },
+]);
 
 function App() {
 
@@ -27,4 +31,4 @@ function App() {
   </RouterProvider>
 }
 
-export default App
+export default App;
