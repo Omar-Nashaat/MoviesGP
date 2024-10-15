@@ -13,13 +13,35 @@ import { IMAGE_BASE_URL } from '@/constants/constants';
 
 const Home = () => {
   const { isMobile } = useIsMobile();
-  const [trendingMovies, setTrendingMovies] = useState([])
+  const [trendingMovies, setTrendingMovies] = useState([]);
+  const [nowPlaying, setNowPlaying] = useState([]);
+  const [topRated, setTopRated] = useState([]);
 
   const getTrendingMovies = () => {
     axios.get(`/trending/movie/day`)
       .then((res) => {
-        console.log(res.data.results);
+        // console.log(res.data.results);
         setTrendingMovies(res.data.results);
+      }).catch((err) => {
+        console.log(err);
+      })
+  }
+
+  const getNowMovies = () => {
+    axios.get(`/movie/now_playing`)
+      .then((res) => {
+        // console.log('now_playing', res.data.results);
+        setNowPlaying(res.data.results);
+      }).catch((err) => {
+        console.log(err);
+      })
+  }
+
+  const getTopRated = () => {
+    axios.get(`/movie/top_rated`)
+      .then((res) => {
+        // console.log('top_rated', res.data.results);
+        setTopRated(res.data.results);
       }).catch((err) => {
         console.log(err);
       })
@@ -27,6 +49,8 @@ const Home = () => {
 
   useEffect(() => {
     getTrendingMovies();
+    getNowMovies();
+    getTopRated();
   }, [])
 
 
@@ -90,7 +114,7 @@ const Home = () => {
         <div className='mt-20'>
           <h2 className='text-white font-thin text-[40px] mb-5'>Trending Movies</h2>
           <div className="flex flex-wrap justify-between pb-20 mt-5 gap-2">
-            {trendingMovies.map((movie, idx) => (
+            {trendingMovies.slice(0, 10).map((movie, idx) => (
               <div className="group w-full md:w-1/6 mb-8" key={idx}>
                 <div className='relative'>
                   <img
@@ -121,6 +145,80 @@ const Home = () => {
         </div>
       </div>
       {/* end Trending */}
+
+      {/* start Now */}
+      <div className="container">
+        <div className='mt-10'>
+          <h2 className='text-white font-thin text-[40px] mb-5'>Now Playing</h2>
+          <div className="flex flex-wrap justify-between pb-20 mt-5 gap-2">
+            {nowPlaying.slice(0, 10).map((movie, idx) => (
+              <div className="group w-full md:w-1/6 mb-8" key={idx}>
+                <div className='relative'>
+                  <img
+                    // src={film}
+                    src={`${IMAGE_BASE_URL}${movie.poster_path}`}
+                    alt="Film"
+                    className="w-full rounded-md"
+                  />
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-gray-700 bg-opacity-50 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i className="fa-solid fa-circle-play text-white text-[50px] cursor-pointer"></i>
+                  </div>
+                </div>
+                <h6 className='text-white text-[18px] font-semibold mt-1 mb-1'>{movie.title}</h6>
+                <div className='flex flex-row justify-between items-center'>
+                  <span className='text-white'>{movie.release_date.split("-")[0]} {movie.vote_average == 0 ? null :
+                    <>
+                      - {movie.vote_average.toFixed(1)}
+                      <i className="fa-solid fa-star text-[#FFD600] ms-1"></i>
+                    </>
+                  }
+                  </span>
+                  {/* <span className='text-white border-2 px-1 rounded-sm'>{movie.media_type}</span> */}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      {/* end Now */}
+
+      {/* start Top */}
+      <div className="container">
+        <div className='mt-10'>
+          <h2 className='text-white font-thin text-[40px] mb-5'>Top Rated</h2>
+          <div className="flex flex-wrap justify-between pb-20 mt-5 gap-2">
+            {topRated.slice(0, 10).map((movie, idx) => (
+              <div className="group w-full md:w-1/6 mb-8" key={idx}>
+                <div className='relative'>
+                  <img
+                    // src={film}
+                    src={`${IMAGE_BASE_URL}${movie.poster_path}`}
+                    alt="Film"
+                    className="w-full rounded-md"
+                  />
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-gray-700 bg-opacity-50 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i className="fa-solid fa-circle-play text-white text-[50px] cursor-pointer"></i>
+                  </div>
+                </div>
+                <h6 className='text-white text-[18px] font-semibold mt-1 mb-1'>{movie.title}</h6>
+                <div className='flex flex-row justify-between items-center'>
+                  <span className='text-white'>{movie.release_date.split("-")[0]} {movie.vote_average == 0 ? null :
+                    <>
+                      - {movie.vote_average.toFixed(1)}
+                      <i className="fa-solid fa-star text-[#FFD600] ms-1"></i>
+                    </>
+                  }
+                  </span>
+                  {/* <span className='text-white border-2 px-1 rounded-sm'>{movie.media_type}</span> */}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      {/* end Top */}
     </div>
   )
 }
