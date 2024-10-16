@@ -20,6 +20,10 @@ export default function Search(filter) {
     document.querySelector(".page").style.display = "";
     document.querySelector(".loading").style.display = "";
   }, [results]);
+  useEffect(() => {
+    document.querySelector(".page").style.display = "none";
+    document.querySelector(".loading").style.display = "flex";
+  }, []);
   return (
     <>
       <Cards

@@ -158,7 +158,7 @@ a {
       border-radius: 10px;
     }
   }
-}
+  }
 
 #vote-loading {
   display: flex;
@@ -266,5 +266,18 @@ a {
   100% {
     opacity: 0;
     transform: translate(0);
+  }
+}
+
+
+.loading{
+  display: none;
+  background-color: #44406f;
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+  img{
+      width: 150px;
+      height: 150px;
   }
 }

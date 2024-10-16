@@ -17,26 +17,6 @@ a:hover {
   color: rgba(200, 137, 205, 0.9803921569) !important;
 }
 
-.page {
-  width: 100%;
-  min-height: 100vh;
-  position: relative;
-  background-color: rgba(68, 64, 111, 0.7);
-}
-.page::before {
-  content: "";
-  position: absolute;
-  background-image: url(../imgs/backgroundImg.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-}
 .page .container {
   padding-top: 40px;
   padding-bottom: 40px;
@@ -241,4 +221,15 @@ a:hover {
     opacity: 0;
     transform: translate(0);
   }
+}
+.loading {
+  display: none;
+  background-color: #44406f;
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+}
+.loading img {
+  width: 150px;
+  height: 150px;
 }/*# sourceMappingURL=filmdetals.css.map */
