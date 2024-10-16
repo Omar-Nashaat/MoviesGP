@@ -12,7 +12,7 @@ export default function Card({ all, imageSource, title, first, second, type }) {
         navigate("/ActorDetails/" + "/?" + "person=" + all.id);
       }
     } else {
-      navigate(`/FilmDetails/${all.id}`);
+      navigate(`/FilmDetails/${type}/${all.id}`);
     }
   };
   return (

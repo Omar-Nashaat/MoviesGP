@@ -14,11 +14,11 @@ function FilmDetails() {
   const [isLoading, setIsLoading] = useState(false);
   const [filmDetails, setFilmDetails] = useState(null);
   const [filmVideos, setFilmVideos] = useState([]);
-  const { id } = useParams();
+  const { id, type } = useParams();
 
   const getFilmDetails = () => {
     axios
-      .get(`/movie/${id}`)
+      .get(`/${type}/${id}`)
       .then((res) => {
         console.log(res.data);
 
@@ -208,7 +208,9 @@ function FilmDetails() {
                         <span className="type">
                           <strong>Released: </strong>
                         </span>
-                        {filmDetails && filmDetails.release_date}
+                        {filmDetails &&
+                          (filmDetails.release_date ||
+                            filmDetails.first_air_date)}
                       </div>
                       <div className="row-line">
                         <span className="type">

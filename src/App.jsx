@@ -21,6 +21,7 @@ const routes = createBrowserRouter([
       { path: "FavoritePage", element: <FavoritePage /> },
       { path: "ActorDetails", element: <ActorDetails /> },
       { path: "FilmDetails/:id", element: <FilmDetails /> },
+      { path: "FilmDetails/:type/:id", element: <FilmDetails /> },
 
       // { path: '*', element: <NotFound /> },
     ],
