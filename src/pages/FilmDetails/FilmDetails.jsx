@@ -1,31 +1,108 @@
 import Card from "react-bootstrap/Card";
 import heroCardImg from "./imgs/cardImg.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import "./css/filmdetals.css";
 import { ProgressBar } from "react-bootstrap";
+import axios from "@/api/axios";
+import { useParams } from "react-router-dom";
+import { IMAGE_BASE_URL } from "@/constants/constants";
+import toast from "react-hot-toast";
 
 function FilmDetails() {
   const [isLoading, setIsLoading] = useState(false);
-  const addToFavoret = (id) => {
-    console.log("Added to favoret", id);
-    setIsLoading(true);
-    setTimeout(() => setIsLoading(false), 1000); // Simulate a delay
+  const [filmDetails, setFilmDetails] = useState([]);
+  const [filmVideos, setFilmVideos] = useState([]);
+  const { id } = useParams();
+
+  const getFilmDetails = () => {
+    axios.get(`/movie/${id}`)
+      .then((res) => {
+        console.log(res.data);
+        setFilmDetails(res.data);
+      }).catch((err) => {
+        console.log(err);
+      })
+  }
+
+  const getFilmVideo = () => {
+    axios.get(`/movie/${id}/videos`)
+      .then((res) => {
+        // console.log(res.data);
+        setFilmVideos(res.data.results);
+      }).catch((err) => {
+        console.log(err);
+      })
+  }
+
+  const filteredTrailer = filmVideos?.filter(video => video.type === 'Trailer');
+
+
+  const addToFavourite = (id) => {
+    const body = {
+      media_type: "movie",
+      media_id: id,
+      favorite: true,
+    }
+    axios.post(`/account/21081425/favorite?session_id=${localStorage.getItem('sessionId')}`, body)
+      .then((res) => {
+        console.log(res.data);
+        toast.success('Added to favourites Successfully', { position: "top-center" })
+      }).catch((err) => {
+        console.log(err);
+        toast.error('Error Occured', { position: "top-center" })
+      })
   };
+
+  const getFav = () => {
+    axios.get(`/account/21081425/favorite/movies`)
+      .then((res) => {
+        console.log(res.data);
+
+      }).catch((err) => {
+        console.log(err);
+
+      })
+  }
+
+
+  useEffect(() => {
+    getFilmDetails();
+    getFilmVideo();
+    getFav();
+  }, [])
 
   // const dislike = (id) => {
   //   console.log("Disliked", id);
   //   setIsLoading(true);
   //   setTimeout(() => setIsLoading(false), 1000); // Simulate a delay
   // };
+  const backgroundImageUrl = `${IMAGE_BASE_URL}${filmDetails.backdrop_path}`;
 
   return (
-    <div className="page">
+    <div className="page" style={{
+      width: '100%',
+      minHeight: '100vh',
+      position: 'relative',
+      backgroundColor: '#f5f5f5',
+      backgroundImage: `url(${backgroundImageUrl})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }}>
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Adjust opacity/color as needed
+        zIndex: 1,
+      }}></div>
       <div className="container">
         <div className="row">
           <div className="col-md-6 col-lg-3">
             <Card className="card" style={{ width: "100%", height: "auto" }}>
-              <Card.Img variant="top" src={heroCardImg} />
+              <Card.Img variant="top" src={`${IMAGE_BASE_URL}${filmDetails.poster_path}`} />
               <Card.Body>
                 <div id="block-rating" className="block-rating p-3">
                   <div className="rating-result mb-3">
@@ -37,12 +114,12 @@ function FilmDetails() {
 
                   <div className="add-to-favoret-main text-center  py-3">
                     <Button
-                      onClick={() => addToFavoret(111016)}
+                      onClick={() => addToFavourite(filmDetails?.id)}
                       variant="primary"
                       className="add-to-favoret-btn rounded-5"
                     >
                       <i className="fa-regular fa-heart mt-2"></i> Add To
-                      Favoret
+                      Favorite
                     </Button>
                     {/* <Button
                       onClick={() => dislike(111016)}
@@ -67,19 +144,23 @@ function FilmDetails() {
               </Card.Body>
             </Card>
           </div>
-          <div className="col-md-6 offset-lg-1 col-lg-8">
+          <div className="col-md-6 offset-lg-1 col-lg-8" style={{
+            position: 'relative',
+            zIndex: 2, // Ensures content is above the overlay
+            color: 'white', // Example text color
+            padding: '20px',
+          }}>
             <div className="card-content d-flex flex-column justify-content-center  align-items-start w-100 h-100 gap-3">
-              <Button className="button-85 mt-5 mb-3 " variant="primary">
-                <i className="fa fa-play mr-2"></i>Watch trailer
-              </Button>
+              <a target="__blank" href={`https://www.youtube.com/watch?v=${filteredTrailer[0]?.key}`}>
+                <Button className="button-85 mt-5 mb-3 " variant="primary">
+                  <i className="fa fa-play mr-2"></i>Watch trailer
+                </Button>
+              </a>
               <h2 className="heading-name">
-                <a href="#">Deadpool &amp; Wolverine</a>
+                <a href="#">{filmDetails.original_title}</a>
               </h2>
               <div className="mb-2 lh-base">
-                A listless Wade Wilson toils away in civilian life with his days
-                as the morally flexible mercenary, Deadpool, behind him. But
-                when his homeworld faces an existential threat, Wade must
-                reluctantly suit-up again with an even more reluctant Wolverine.
+                {filmDetails.overview}
               </div>
               <div className="elements">
                 <div className="row">
@@ -88,102 +169,45 @@ function FilmDetails() {
                       <span className="type">
                         <strong>Released: </strong>
                       </span>
-                      2024-07-24
+                      {filmDetails.release_date}
                     </div>
                     <div className="row-line">
                       <span className="type">
                         <strong>Genre: </strong>
                       </span>
-                      <a href="/genre/science-fiction" title="Science Fiction">
-                        Science Fiction
-                      </a>
-                      ,
-                      <a href="/genre/action" title="Action">
-                        Action
-                      </a>
-                      ,
-                      <a href="/genre/comedy" title="Comedy">
-                        Comedy
-                      </a>
-                    </div>
-                    <div className="row-line">
-                      <span className="type">
-                        <strong>Casts: </strong>
-                      </span>
-                      <a
-                        href="/cast/matthew-macfadyen"
-                        title="Matthew Macfadyen"
-                      >
-                        Matthew Macfadyen
-                      </a>
-                      ,
-                      <a href="/cast/ray-park" title="Ray Park">
-                        Ray Park
-                      </a>
-                      ,
-                      <a href="/cast/dania-ramirez" title="Dania Ramirez">
-                        Dania Ramirez
-                      </a>
-                      ,
-                      <a href="/cast/chris-hemsworth" title="Chris Hemsworth">
-                        Chris Hemsworth
-                      </a>
-                      ,
-                      <a
-                        href="/cast/brianna-hildebrand"
-                        title="Brianna Hildebrand"
-                      >
-                        Brianna Hildebrand
-                      </a>
+                      {filmDetails?.genres?.map((gen, idx) => (
+                        <span key={idx}>
+                          <a href="#" title={gen.name}>
+                            {gen.name}
+                          </a>
+                          {idx < filmDetails.genres.length - 1 && ', '}
+                        </span>
+                      ))}
+
                     </div>
                   </div>
                   <div className="col-xl-6 col-lg-6 col-md-4 col-sm-12">
                     <div className="row-line">
                       <span className="type">
-                        <strong>Duration: </strong>
-                      </span>
-                      127 min
-                    </div>
-                    <div className="row-line">
-                      <span className="type">
                         <strong>Country: </strong>
                       </span>
                       <a href="/country/us" title="United States of America">
-                        United States of America
+                        {filmDetails?.origin_country?.[0]}
                       </a>
                     </div>
                     <div className="row-line">
                       <span className="type">
                         <strong>Production: </strong>
                       </span>
-                      <a
-                        href="/production/marvel-studios"
-                        title="Marvel Studios"
-                      >
-                        Marvel Studios
-                      </a>
-                      ,
-                      <a href="/production/" title="Kevin Feige Productions">
-                        Kevin Feige Productions
-                      </a>
-                      ,
-                      <a
-                        href="/production/maximum-effort"
-                        title="Maximum Effort"
-                      >
-                        Maximum Effort
-                      </a>
-                      ,
-                      <a
-                        href="/production/21-laps-entertainment"
-                        title="21 Laps Entertainment"
-                      >
-                        21 Laps Entertainment
-                      </a>
-                      ,
-                      <a href="/production/genre-films" title="Genre Films">
-                        Genre Films
-                      </a>
+                      {filmDetails?.production_companies?.map((company, idx) => (
+                        <a
+                          key={idx}
+                          href="#"
+                          title={company?.name}
+                        >
+                          {company?.name}
+                        </a>
+                      ))}
                     </div>
                   </div>
                   <div className="clearfix"></div>

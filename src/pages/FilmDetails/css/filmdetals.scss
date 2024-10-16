@@ -6,6 +6,7 @@ $color_4: #c889cdfa;
 $font-family_1: Arial;
 $bg-color_1: #44406f;
 $bg-layer: rgba(68, 64, 111, 0.7);
+
 body {
   font-family: "Roboto", sans-serif;
   color: $main-color !important;
@@ -13,35 +14,20 @@ body {
   line-height: 1.2em;
   font-weight: 400;
 }
+
 a {
   color: $color_1 !important;
   text-decoration: none !important;
   outline: 0;
   -moz-outline: none;
   transition: all 0.3s !important;
+
   &:hover {
     color: $color_4 !important;
   }
 }
+
 .page {
-  width: 100%;
-  min-height: 100vh;
-  position: relative;
-  background-color: $bg-layer;
-  &::before {
-    content: "";
-    position: absolute;
-    background-image: url(../imgs/backgroundImg.jpg); // Ensure this path is correct
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center; // Center the image
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; // Make sure this is behind other content
-  }
 
   .container {
     padding-top: 40px;
@@ -90,6 +76,7 @@ a {
         }
       }
     }
+
     .heading-name {
       font-size: 2.5em;
       line-height: 1.3em;
@@ -97,6 +84,7 @@ a {
       color: #fff;
       font-weight: 300;
     }
+
     .button-85 {
       padding: 0.6em 2em;
       border: none;
@@ -111,6 +99,7 @@ a {
       -webkit-user-select: none;
       touch-action: manipulation;
       transition: all 0.3s;
+
       &:hover {
         color: $color_3;
         transform: scale(1.1); // Use transform instead of scale
@@ -119,18 +108,16 @@ a {
 
     .button-85:before {
       content: "";
-      background: linear-gradient(
-        45deg,
-        #ff0000,
-        #ff7300,
-        #fffb00,
-        #48ff00,
-        #00ffd5,
-        #002bff,
-        #7a00ff,
-        #ff00c8,
-        #ff0000
-      );
+      background: linear-gradient(45deg,
+          #ff0000,
+          #ff7300,
+          #fffb00,
+          #48ff00,
+          #00ffd5,
+          #002bff,
+          #7a00ff,
+          #ff00c8,
+          #ff0000);
       position: absolute;
       top: -2px;
       left: -2px;
@@ -149,9 +136,11 @@ a {
       0% {
         background-position: 0 0;
       }
+
       50% {
         background-position: 400% 0;
       }
+
       100% {
         background-position: 0 0;
       }
@@ -211,6 +200,7 @@ a {
   0% {
     transform: scale(1);
   }
+
   100% {
     transform: scale(1.5);
   }
@@ -237,6 +227,7 @@ a {
   box-shadow: inset 0 4px 6px -1px rgb(0 0 0 / 0.1),
     0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
+
 .add-to-favoret-main:hover .add-to-favoret-btn {
   transform: scale(1.1);
 }
@@ -271,6 +262,7 @@ a {
     opacity: 1;
     transform: translate(45px);
   }
+
   100% {
     opacity: 0;
     transform: translate(0);

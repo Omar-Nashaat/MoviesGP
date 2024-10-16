@@ -20,7 +20,7 @@ const routes = createBrowserRouter([
       { path: "result/:type", element: <ResultPage /> },
       { path: "FavoritePage", element: <FavoritePage /> },
       { path: "ActorDetails", element: <ActorDetails /> },
-      { path: "FilmDetails", element: <FilmDetails /> },
+      { path: "FilmDetails/:id", element: <FilmDetails /> },
 
       // { path: '*', element: <NotFound /> },
     ],
