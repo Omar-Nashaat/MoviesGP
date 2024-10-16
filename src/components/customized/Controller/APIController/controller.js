@@ -71,7 +71,6 @@ export function getParams(filter) {
   if (filter.filter.page) {
     params += "page=" + filter.filter.page + "&";
   }
-
   if (filter.filter.type === "movie" || filter.filter.type === "all") {
     params += getMovieParams(filter);
   } else if (filter.filter.type === "tv") {
@@ -99,4 +98,3 @@ export function getParams(filter) {
   }
   return params;
 }
-

@@ -30,6 +30,7 @@ export function getMovieParams(filter) {
     let genres = getGenreCodes(filter.filter.genre).join(",");
     params += "with_genres=" + genres + "&";
   }
+  
   return params;
 }
 

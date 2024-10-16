@@ -5,6 +5,10 @@ export async function getActorDetails(actorID) {
     "https://api.themoviedb.org/3/person/" + actorID,
     options
   );
-  response = await response.json();
-  return response;
+  if (response.status === 200) {
+    response = await response.json();
+    return response;
+  } else {
+    return null;
+  }
 }
