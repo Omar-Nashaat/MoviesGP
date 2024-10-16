@@ -62,7 +62,7 @@ const Navbar = ({ searchBox }) => {
               {/* Profile dropdown */}
               <Menu as="div" className="relative ml-3">
                 <div>
-                  <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                  {/* <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span className="absolute -inset-1.5" />
                     <span className="sr-only">Open user menu</span>
                     <img
@@ -70,7 +70,7 @@ const Navbar = ({ searchBox }) => {
                       src="https://hwchamber.co.uk/wp-content/uploads/2022/04/avatar-placeholder.gif"
                       className="h-8 w-8 rounded-full"
                     />
-                  </MenuButton>
+                  </MenuButton> */}
                 </div>
                 <MenuItems
                   transition

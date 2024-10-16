@@ -105,12 +105,12 @@ function FilmDetails() {
               <Card.Img variant="top" src={`${IMAGE_BASE_URL}${filmDetails.poster_path}`} />
               <Card.Body>
                 <div id="block-rating" className="block-rating p-3">
-                  <div className="rating-result mb-3">
+                  {/* <div className="rating-result mb-3">
                     <div className="rr-mark">
                       <span>9.4</span>/ 106 voted
                     </div>
                     <ProgressBar now={94.34} className="mb-2" />
-                  </div>
+                  </div> */}
 
                   <div className="add-to-favoret-main text-center  py-3">
                     <Button
