@@ -11,6 +11,8 @@ export default function Card({ all, imageSource, title, first, second, type }) {
       if (all.id) {
         navigate("/ActorDetails/" + "/?" + "person=" + all.id);
       }
+    } else {
+      navigate(`/FilmDetails/${all.id}`);
     }
   };
   return (

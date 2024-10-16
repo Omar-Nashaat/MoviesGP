@@ -52,6 +52,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
+  color: #212529;
   background-color: #eee;
   padding: 2px 10px;
   border-radius: 5px;
