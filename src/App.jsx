@@ -6,6 +6,7 @@ import Home from "./pages/Home/Home";
 import ResultPage from "./pages/ResultPage/ResultPage";
 import FavoritePage from "./pages/FavoritePage/FavoritePage";
 import ActorDetails from "./pages/ActorDetails/ActorDetails";
+import FilmDetails from "./pages/FilmDetails/FilmDetails";
 
 const routes = createBrowserRouter([
   { path: "", element: <Login /> },
@@ -19,6 +20,7 @@ const routes = createBrowserRouter([
       { path: "result/:type", element: <ResultPage /> },
       { path: "FavoritePage", element: <FavoritePage /> },
       { path: "ActorDetails", element: <ActorDetails /> },
+      { path: "FilmDetails", element: <FilmDetails /> },
 
       // { path: '*', element: <NotFound /> },
     ],
