@@ -26,6 +26,15 @@ export const options2 = {
       "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNjBhM2ViMDhhMWQ5Y2RjY2E1NGZjNjcwMTgxMmFjOCIsIm5iZiI6MTcyODgzNzEzNS4wNDc0NDMsInN1YiI6IjY2Zjk4MjYyMWE5YzkxODhmZWNjNjNkYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zxd5_bfFTMTI8-WCbWxQqFbNjgdIBQi80U1n9PekP4c",
   },
 };
+export const OmarOptions = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    "content-type": "application/json",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhOGYwYjA3YmJiOGVhYmJhN2JkYWIwYWY3NjZkYzRkNCIsIm5iZiI6MTcyODIxODc1MS43OTY1MSwic3ViIjoiNjVlYzc0NWEzMDgxMzEwMTgzNGQyODQxIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.VbzcySwlO4Gq0d7ZTh3e2mSkoACLIgC32OXatut07Cc",
+  },
+};
 export function getAPI(filter) {
   if (filter.filter.type === "all") {
     return [

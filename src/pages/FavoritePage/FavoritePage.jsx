@@ -161,7 +161,7 @@ export default function FavoritePage() {
         <div className="pageNumbers">
           <ul>{showPages()}</ul>
         </div>
-        <Cards Results={Results} Type={"movie"} />;
+        <Cards Results={Results} Type={"movie"} />
         <div className="pageNumbers">
           <ul>{showPages()}</ul>
         </div>

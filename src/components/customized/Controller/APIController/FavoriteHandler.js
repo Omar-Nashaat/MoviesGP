@@ -1,4 +1,4 @@
-import { options, options2 } from "./controller";
+import { options, options2, OmarOptions } from "./controller";
 import { moreDetails, shuffleArray } from "./fetch";
 async function createRequestToken() {
   let response = await fetch(
@@ -47,12 +47,12 @@ async function getMedia(page) {
   let fetches = [];
   let maxSize = -1;
   let APIS = [
-    "https://api.themoviedb.org/3/account/21544671/favorite/movies",
-    "https://api.themoviedb.org/3/account/21544671/favorite/tv",
+    "https://api.themoviedb.org/3/account/21081425/favorite/movies",
+    "https://api.themoviedb.org/3/account/21081425/favorite/tv",
   ];
 
   for (let i = 0; i < APIS.length; i++) {
-    let response = await fetch(APIS[i] + `?page=${page}`, options);
+    let response = await fetch(APIS[i] + `?page=${page}`, OmarOptions);
     response = await response.json();
     if (maxSize < response.total_pages) {
       maxSize = response.total_pages;
