@@ -30,12 +30,26 @@ const Login = () => {
       .then((res) => {
         console.log(res.data);
         toast.success('Logged In Successfully', { position: "top-center" })
-        setTimeout(()=>{
+        setTimeout(() => {
           nav('/home')
-        },1250)
+        }, 1250)
+        createSession();
       }).catch((err) => {
         console.log(err);
         toast.error(err.response.data.status_message, { position: "top-center" })
+      })
+  }
+
+  const createSession = () => {
+    const body = {
+      request_token: localStorage.getItem('token')
+    }
+    axios.post(`/authentication/session/new`, body)
+      .then((res) => {
+        console.log(res.data);
+        localStorage.setItem('sessionId', res.data.session_id)
+      }).catch((err) => {
+        console.log(err);
       })
   }
 
