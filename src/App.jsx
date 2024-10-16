@@ -5,6 +5,7 @@ import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
 import ResultPage from "./pages/ResultPage/ResultPage";
 import FavoritePage from "./pages/FavoritePage/FavoritePage";
+import ActorDetails from "./pages/ActorDetails/ActorDetails";
 
 const routes = createBrowserRouter([
   { path: "", element: <Login /> },
@@ -17,6 +18,7 @@ const routes = createBrowserRouter([
       { path: "result", element: <ResultPage /> },
       { path: "result/:type", element: <ResultPage /> },
       { path: "FavoritePage", element: <FavoritePage /> },
+      { path: "ActorDetails", element: <ActorDetails /> },
 
       // { path: '*', element: <NotFound /> },
     ],

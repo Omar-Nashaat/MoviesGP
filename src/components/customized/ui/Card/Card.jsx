@@ -9,15 +9,7 @@ export default function Card({ all, imageSource, title, first, second, type }) {
   const onclick = () => {
     if (type == "person") {
       if (all.id) {
-        navigate(
-          "/result/" +
-            "person" +
-            "/?" +
-            "person=" +
-            all.id +
-            "&name=" +
-            all.name
-        );
+        navigate("/ActorDetails/" + "/?" + "person=" + all.id);
       }
     }
   };
